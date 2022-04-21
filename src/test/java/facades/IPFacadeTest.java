@@ -1,12 +1,14 @@
 package facades;
 
 import dtos.IPDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled
 class IPFacadeTest {
     private IPFacade ipFacade = new IPFacade();
 
