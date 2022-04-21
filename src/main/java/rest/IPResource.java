@@ -34,7 +34,6 @@ public class IPResource {
    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    //@RolesAllowed("user")
     public Response getIP() throws IOException {
         IPFacade ipf = new IPFacade();
         IPDTO ipDTO = ipf.getIP();
