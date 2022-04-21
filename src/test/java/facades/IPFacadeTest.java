@@ -29,7 +29,7 @@ class IPFacadeTest {
     @Test
     void getApiRequestAmountTest() throws IOException {
         int amount = ipFacade.getApiRequestAmount();
-        System.out.println(amount);
+
 
     }
 }
