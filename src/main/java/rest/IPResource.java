@@ -42,7 +42,7 @@ public class IPResource {
 
     @GET
     @Path("/{ip}")
-    //@RolesAllowed("admin")
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIPInfo(@PathParam("ip") String ip) throws IOException {
         IPFacade ipf = new IPFacade();
@@ -52,7 +52,6 @@ public class IPResource {
 
     @GET
     @Path("/count")
-    //@RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getApiRequestAmount() throws IOException {
         IPFacade ipf = new IPFacade();
