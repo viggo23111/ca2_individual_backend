@@ -47,11 +47,17 @@ public class IPResource {
     public Response getIPInfo(@PathParam("ip") String ip) throws IOException {
         IPFacade ipf = new IPFacade();
         IPDTO ipDTO = ipf.getIPInfo(ip);
-        System.out.println(ipDTO.getCity());
-        IPDTO ipDTO2 = ipf.getIPInfo("87.48.15.41");
-        System.out.println(ipDTO2.getIp());
-        System.out.println(ipDTO2.getCity());
         return Response.ok().entity(GSON.toJson(ipDTO)).build();
+    }
+
+    @GET
+    @Path("/count")
+    //@RolesAllowed("admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getApiRequestAmount() throws IOException {
+        IPFacade ipf = new IPFacade();
+        int amount = ipf.getApiRequestAmount();
+        return Response.ok().entity(GSON.toJson(amount)).build();
     }
 
    

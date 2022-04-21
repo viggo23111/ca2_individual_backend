@@ -3,9 +3,14 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dtos.IPDTO;
-import dtos.JokeDTO;
+import entities.IP;
+import utils.EMF_Creator;
 import utils.HttpUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.IOException;
 
 public class IPFacade {
@@ -29,6 +34,34 @@ public class IPFacade {
         String resultPostal = jObjIPInfo.get("postal").getAsString();
         String resultTimezone = jObjIPInfo.get("timezone").getAsString();
         IPDTO ipDTO = new IPDTO(ip,resultCity,resultRegion,resultCountry,resultLoc,resultOrg,resultPostal,resultTimezone);
+        saveIPInfoRequest(ipDTO);
         return ipDTO;
     }
+
+    public void saveIPInfoRequest(IPDTO ipdto){
+        IP ipInfo = new IP(ipdto.getIp(),ipdto.getCity(),ipdto.getRegion(),ipdto.getCountry(),ipdto.getLoc(),ipdto.getOrg(),ipdto.getPostal(),ipdto.getTimezone());
+        EntityManagerFactory emf= EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(ipInfo);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getApiRequestAmount(){
+        EntityManagerFactory emf= EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+        try{
+            Query query = em.createQuery("select count(i) FROM IP i");
+            long amount = (long) query.getSingleResult();
+            return (int) amount;
+        } finally {
+            em.close();
+        }
+    }
+
+
 }

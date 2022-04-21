@@ -1,7 +1,6 @@
 package facades;
 
 import dtos.IPDTO;
-import dtos.JokeDTO;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,10 +19,17 @@ class IPFacadeTest {
 
     @Test
     void getIPInfoTest() throws IOException {
-        IPDTO ipDTO = ipFacade.getIPInfo("87.48.15.41");
+        IPDTO ipDTO = ipFacade.getIPInfo("87.49.147.251");
         System.out.println(ipDTO.getIp());
         System.out.println(ipDTO.getCity());
         System.out.println(ipDTO.getCountry());
         assertNotNull(ipDTO.getIp());
+    }
+
+    @Test
+    void getApiRequestAmountTest() throws IOException {
+        int amount = ipFacade.getApiRequestAmount();
+        System.out.println(amount);
+
     }
 }
